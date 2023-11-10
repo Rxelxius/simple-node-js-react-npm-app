@@ -11,6 +11,11 @@ pipeline {
 				git 'https://github.com/Rxelxius/simple-node-js-react-npm-app.git'
 			}
 		}
+        stage('OWASP DependencyCheck') {
+			steps {
+				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+			}
+		}
 		stage('Build') { 
             steps {
                 sh 'npm install' 
@@ -28,11 +33,7 @@ pipeline {
                 sh './jenkins/scripts/kill.sh'
             }
         }
-		stage('OWASP DependencyCheck') {
-			steps {
-				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-			}
-		}
+	
 		// stage('OWASP Dependency-Check Vulnerabilities') {
 		// 	steps {
 		// 		dependencyCheck additionalArguments: ''' 
