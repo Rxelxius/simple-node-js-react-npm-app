@@ -13,17 +13,21 @@ pipeline {
 				git 'https://github.com/Rxelxius/simple-node-js-react-npm-app.git'
 			}
 		}
-		stage('Build') { 
+        stage('OWASP Dependency-Check Vulnerabilities') {
+			steps {
+				dependencyCheck additionalArguments: ''' 
+                    -o './'
+                    -s './'
+                    -f 'ALL' 
+                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+			}
+		}
+        stage('Build') { 
             steps {
                 sh 'npm install' 
             }
         }
-        // stage('OWASP DependencyCheck') {
-		// 	steps {
-		// 		dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-        //      dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-		// 	}
-		// }
         stage('Test') { 
             steps {
                 sh './jenkins/scripts/test.sh' 
