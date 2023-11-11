@@ -1,5 +1,5 @@
 pipeline {
-	 agent {
+	agent {
         docker {
             // image 'node:20.9.0-alpine3.18' 
 			// Note: apparently using old version doesnt let the page display...
@@ -36,7 +36,8 @@ pipeline {
             }
         }
 	
-	}post {
+	}
+    post {
 		success {
 			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
 		}
