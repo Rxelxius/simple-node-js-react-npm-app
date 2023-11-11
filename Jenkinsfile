@@ -2,6 +2,7 @@ pipeline {
 	 agent {
         docker {
             // image 'node:20.9.0-alpine3.18' 
+			// Note: apparently using old version doesnt let the page display...
 			image 'node:21.1.0-alpine3.18' 
             args '-p 3000:3000' 
         }
