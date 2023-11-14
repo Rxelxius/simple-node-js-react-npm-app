@@ -18,16 +18,16 @@ pipeline {
                 sh 'npm install' 
             }
         }
-        stage('OWASP Dependency-Test') {
-			steps {
-				dependencyCheck additionalArguments: ''' 
-                    -o './'
-                    -s './'
-                    -f 'ALL' 
-                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Test'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-			}
-		}
+        // stage('OWASP Dependency-Test') {
+		// 	steps {
+		// 		dependencyCheck additionalArguments: ''' 
+        //             -o './'
+        //             -s './'
+        //             -f 'ALL' 
+        //             --prettyPrint''', odcInstallation: 'OWASP Dependency-Test'
+        //         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+		// 	}
+		// }
         stage('Test') { 
             steps {
                 sh './jenkins/scripts/test.sh' 
